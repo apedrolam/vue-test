@@ -6,10 +6,9 @@
     </head>
     <body>
         <div id="app">
-            <div>
-                <h1>{{ title | uppercase }}</h1>
-                <h2>{{ subtitle | lowercase | capitalize }}</h2>
-            </div>
+            <button v-on:click="add">+ 1</button>
+            <button @click="subtract">- 1</button>
+            Counter: {{ counter }}
         </div>
 
         <script src="https://unpkg.com/vue"></script>
@@ -17,18 +16,14 @@
             let app = new Vue({
                 el: '#app',
                 data: {
-                    title: "This is my title",
-                    subtitle: "This is my subtitle"
+                    counter: '0'
                 },
-                filters: {
-                    uppercase: (str) => {
-                        return str.toUpperCase();
+                methods: {
+                    add: function() {
+                        this.counter++
                     },
-                    lowercase: (str) => {
-                        return str.toLowerCase();
-                    },
-                    capitalize: (str) => {
-                        return str.charAt(0).toUpperCase() + str.slice(1);
+                    subtract: function() {
+                        this.counter--
                     }
                 }
             })
