@@ -6,8 +6,20 @@
     </head>
     <body>
         <div id="app">
-            Hello {{ name }}
-            <a :href="url" target="_blank">Go to {{ page }}</a>
+            <template v-if="display">
+                <h1>This is my title</h1>
+                <h2>This is my subtitle</h2>
+                <a v-if="display" :href="url" target="_blank">Go to {{ page }}</a>
+            </template>
+
+            <div v-show="display">
+                <h1>This is my title</h1>
+                <h2>This is my subtitle</h2>
+                <a v-if="display" :href="url" target="_blank">Go to {{ page }}</a>
+            </div>
+            <div v-show="!display">
+                It's empty
+            </div>
         </div>
 
         <script src="https://unpkg.com/vue"></script>
@@ -15,9 +27,9 @@
             let app = new Vue({
                 el: '#app',
                 data: {
-                    name: 'World',
                     url: 'http://google.com',
-                    page: 'Google'
+                    page: 'Google',
+                    display: true
                 }
             })
         </script>
