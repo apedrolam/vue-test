@@ -6,9 +6,21 @@
     </head>
     <body>
         <div id="app">
-            <button v-on:click="add">+ 1</button>
-            <button @click="subtract">- 1</button>
-            Counter: {{ counter }}
+            <input type="text" name="name" placeholder="Put your name" v-model="name">
+            <p>Your name in caps is: {{ name | uppercase }}</p>
+
+            <form @submit.prevent="submit" action="" method="get"> <!-- @submit.prevent = v-on:submit.prevent -->
+                <h2>What are your favourites topics?</h2>
+                <input v-model="topics" type="checkbox" id="vue" value="vue">
+                <label for="vue">Vue.js</label>
+                <input v-model="topics" type="checkbox" id="react" value="react">
+                <label for="react">React</label>
+                <input v-model="topics" type="checkbox" id="angular" value="angular">
+                <label for="angular">Angular</label>
+                <input v-model="topics" type="checkbox" id="backbone" value="backbone">
+                <label for="backbone">Backbone</label>
+                <button type="submit">Submit</button>
+            </form>
         </div>
 
         <script src="https://unpkg.com/vue"></script>
@@ -16,14 +28,17 @@
             let app = new Vue({
                 el: '#app',
                 data: {
-                    counter: '0'
+                    name: '',
+                    topics: []
+                },
+                filters: {
+                    uppercase: (str) => {
+                        return str.toUpperCase();
+                    }
                 },
                 methods: {
-                    add: function() {
-                        this.counter++
-                    },
-                    subtract: function() {
-                        this.counter--
+                    submit: function () {
+                        console.log(this.topics)
                     }
                 }
             })
