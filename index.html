@@ -9,8 +9,7 @@
             <form @submit.prevent="submit" action="" method="get"> <!-- @submit.prevent = v-on:submit.prevent -->
                 <h2>What are your favourites topics?</h2>
                 <template v-for="topic in topics">
-                    <input v-model="selectedTopics" type="checkbox" :id="topic.value" :value="topic.value">
-                    <label :for="topic.value">{{ topic.name }}</label>
+                    <topic :topic="topic" @checked="selectTopic"></topic>
                 </template>
                 <button type="submit">Submit</button>
             </form>
@@ -18,6 +17,21 @@
 
         <script src="https://unpkg.com/vue"></script>
         <script type="text/javascript">
+            Vue.component('topic', {
+                props: [ 'topic' ],
+                methods: {
+                    onchange: function (event) {
+                        this.$emit('checked', this.topic.value, event.target.checked)
+                    }
+                },
+                template: `
+                    <div>
+                        <input type="checkbox" :id="topic.value" :value="topic.value" @change="onchange">
+                        <label :for="topic.value">{{ topic.name }}</label>
+                    </div>
+                `
+            })
+
             let app = new Vue({
                 el: '#app',
                 data: {
@@ -44,6 +58,14 @@
                 methods: {
                     submit: function () {
                         console.log(this.selectedTopics)
+                    },
+                    selectTopic: function (topic, checked) {
+                        if(checked) {
+                            this.selectedTopics.push(topic);
+                        } else {
+                            let i = this.selectedTopics.indexOf(topic);
+                            this.selectedTopics.splice(i, 1);
+                        }
                     }
                 }
             })
