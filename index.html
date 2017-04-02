@@ -6,19 +6,12 @@
     </head>
     <body>
         <div id="app">
-            <input type="text" name="name" placeholder="Put your name" v-model="name">
-            <p>Your name in caps is: {{ name | uppercase }}</p>
-
             <form @submit.prevent="submit" action="" method="get"> <!-- @submit.prevent = v-on:submit.prevent -->
                 <h2>What are your favourites topics?</h2>
-                <input v-model="topics" type="checkbox" id="vue" value="vue">
-                <label for="vue">Vue.js</label>
-                <input v-model="topics" type="checkbox" id="react" value="react">
-                <label for="react">React</label>
-                <input v-model="topics" type="checkbox" id="angular" value="angular">
-                <label for="angular">Angular</label>
-                <input v-model="topics" type="checkbox" id="backbone" value="backbone">
-                <label for="backbone">Backbone</label>
+                <template v-for="topic in topics">
+                    <input v-model="selectedTopics" type="checkbox" :id="topic.value" :value="topic.value">
+                    <label :for="topic.value">{{ topic.name }}</label>
+                </template>
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -28,17 +21,29 @@
             let app = new Vue({
                 el: '#app',
                 data: {
-                    name: '',
-                    topics: []
-                },
-                filters: {
-                    uppercase: (str) => {
-                        return str.toUpperCase();
-                    }
+                    topics: [
+                        {
+                            name: 'Vue.js',
+                            value: 'vue'
+                        },
+                        {
+                            name: 'React',
+                            value: 'react'
+                        },
+                        {
+                            name: 'Angular',
+                            value: 'angular'
+                        },
+                        {
+                            name: 'Backbone',
+                            value: 'backbone'
+                        }
+                    ],
+                    selectedTopics: []
                 },
                 methods: {
                     submit: function () {
-                        console.log(this.topics)
+                        console.log(this.selectedTopics)
                     }
                 }
             })
