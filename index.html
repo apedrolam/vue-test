@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js test</title>
+    </head>
+    <body>
+        <div id="app">
+            Hello {{ name }}
+            <a :href="url" target="_blank">Go to {{ page }}</a>
+        </div>
+
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript">
+            let app = new Vue({
+                el: '#app',
+                data: {
+                    name: 'World',
+                    url: 'http://google.com',
+                    page: 'Google'
+                }
+            })
+        </script>
+    </body>
+</html>
