@@ -6,19 +6,9 @@
     </head>
     <body>
         <div id="app">
-            <template v-if="display">
-                <h1>This is my title</h1>
-                <h2>This is my subtitle</h2>
-                <a v-if="display" :href="url" target="_blank">Go to {{ page }}</a>
-            </template>
-
-            <div v-show="display">
-                <h1>This is my title</h1>
-                <h2>This is my subtitle</h2>
-                <a v-if="display" :href="url" target="_blank">Go to {{ page }}</a>
-            </div>
-            <div v-show="!display">
-                It's empty
+            <div>
+                <h1>{{ title | uppercase }}</h1>
+                <h2>{{ subtitle | lowercase | capitalize }}</h2>
             </div>
         </div>
 
@@ -27,9 +17,19 @@
             let app = new Vue({
                 el: '#app',
                 data: {
-                    url: 'http://google.com',
-                    page: 'Google',
-                    display: true
+                    title: "This is my title",
+                    subtitle: "This is my subtitle"
+                },
+                filters: {
+                    uppercase: (str) => {
+                        return str.toUpperCase();
+                    },
+                    lowercase: (str) => {
+                        return str.toLowerCase();
+                    },
+                    capitalize: (str) => {
+                        return str.charAt(0).toUpperCase() + str.slice(1);
+                    }
                 }
             })
         </script>
